@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head>
+		<title>Django project</title>
+		<link rel="stylesheet" type="text/css" href={% static 'css/superhero.css' %}>
+		<link rel="stylesheet" type="text/css" href={% static 'css/personal.min.css' %}>
+		<link rel="stylesheet" type="text/css" href={% static 'css/personal.css' %}>
+	</head>
+	<body>
+		<div class="page-header">
+	        <h1><a href="{% url 'polls:index' %}">Django Project One</a></h1>
+	    </div>
+		<h2>{{ question.question_text }}</h2>
+
+		{% if error_message %} 
+			<div class="alert alert-dismissible alert-warning">
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+			  <h4>Warning!</h4>
+			  <p>{{ error_message }} </p>
+			</div>
+		{% endif %}
+
+
+		<form action="{% url 'polls:vote' question.id %}" method="post">
+		   	{% csrf_token %}
+			{% for choice in question.choice_set.all %}
+
+				<div class="radio">
+		          <label>
+		            <input name="choice" id="{{ choice.id }}" value="{{ choice.id }}" type="radio">
+		            {{ choice.choice_text }}
+		          </label>
+		        </div>
+
+		    {% endfor %}
+		<input type="submit" value="Vote" class="btn btn-primary">
+
+		</form>
+
+		<p><a href="{% url 'polls:results' question.id %}">view results</a></p>
+
+	</body>
+</html>
+

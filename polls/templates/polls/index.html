@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head>
+		<title>Django project</title>
+		<link rel="stylesheet" type="text/css" href={% static 'css/superhero.css' %}>
+		<link rel="stylesheet" type="text/css" href={% static 'css/personal.css' %}>
+	</head>
+	<body>
+		<div class="page-header">
+	        <h1><a href="{% url 'polls:index' %}">Django Project One</a></h1>
+	    </div>
+		<h2>Last questions</h2>
+		{% if latest_question_list %}
+		    <ul>
+		    {% for question in latest_question_list %}
+		        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>  {{ question.pub_date }}</li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No polls are available.</p>
+		{% endif %}
+
+	</body>
+</html>
